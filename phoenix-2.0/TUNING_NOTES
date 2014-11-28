@@ -1,0 +1,123 @@
+Phoenix Project
+TUNING_NOTES File
+Last revised May 27, 2009
+
+The library has been optimized for Sun Microsystems' UltraSPARC T2 processors 
+running Solaris. This file documents the performance tuning strategies that 
+users could employ for their specific environment.
+
+
+1. Application Tunables
+-----------------------
+
+1.1. Data Chunk Size
+
+With the user specified splitter function, the Phoenix library splits the input
+data into multiple chunks, so that a map task operates on a single data chunk 
+at a time. By default each chunk size roughly amounts to L1 cache size (64 KB).
+Generally speaking, increasing the chunk size could enhance performance by
+improving the computation to communication ratio. However, increasing the chunk
+size too much would result in significant load imbalance. 
+
+Users can experiment with varying chunk sizes by exporting the environment 
+variable MR_L1CACHESIZE. In each of the application source code, recommended 
+setting is also denoted in comments.
+
+1.2. mmap vs. read
+
+mmap() performance can deteriorate when large number of threads try to fault
+in data pages at the same time. It is suspected that the locks acquired for
+kernel virtual memory object manipulation are causing the serialization. 
+We observed similar problems on both Solaris and Linux.
+
+When the input file size is small, using read() in place of mmap() can be a
+viable solution. Compiling the workloads with NO_MMAP flag set generates
+binaries with read(). However, when the input file is large (couple of GBs), we
+observed that mmap() performance was still better than read().
+
+
+2. Library Tunables
+-------------------
+
+2.1. Hash Bucket Count (a.k.a. Number of Reduce Tasks)
+
+Phoenix internally maintains a hash table to store the intermediate data 
+generated from the map phase. Since each hash bucket amounts to one reduce task,
+and the number of reduce tasks are fixed, the number of hash buckets is fixed
+during the execution. Hence, workloads that generate a large amount of 
+unique keys (e.g., word_count) can have each bucket grow significantly. 
+This causes frequent buffer reallocation problems; even worse, this can lead to 
+poor load balancing in the reduce phase.
+
+One solution is to increase the number of hash buckets, but increasing the
+count too much would generate too many empty reduce tasks. Since there is a
+fixed cost just to figure out a task is empty, empty hash buckets should
+be avoided. Ideally, a user would want a fully populated hash table, where
+each bucket contains only minimal number of keys.
+
+The default values we provide are tuned for executing the sample workloads 
+with large input data set. Users can experiment with varying hash bucket 
+counts by changing the DEFAULT_NUM_REDUCE_TASKS and EXTENDED_NUM_REDUCE_TASKS 
+macros in src/map_reduce.c file. As a rule of thumb, the bucket count should
+be increased in proportion to the number of unique keys.
+
+2.2. Incremental Combiner
+
+Since workloads can generate a huge amount of intermediate data, memory
+allocation pressure is often an issue on Phoenix. For workloads with
+commutative and associative reduce function, combiners can be incrementally
+applied to relieve the pressure. A user can turn on this feature by uncommenting
+the INCREMENTAL_COMBINER macro in src/map_reduce.c. When turned on, internal 
+buffers that are full will be "laundered" by applying the combiner and reused, 
+without allocating a new chunk.
+
+2.3. Binding Threads
+
+As with the original Phoenix release, we bind threads such that we fill up a
+chip first before moving on to another. This placement tends to give better
+performance at high number of threads, suposedly due to better memory latency
+tolerance. 
+
+The scheduling logic can be found in src/scheduler.[ch]. Users can experiment
+with different scheduling policies defined as map_fill_*. Changing the 
+NUM_CORES_PER_CHIP and NUM_STRANDS_PER_CORE macros might be necessary as well.
+
+
+3. OS Tunables
+--------------
+
+3.1. Changing the Page Size
+
+Under locality-aware task distribution, the page size can be an important
+factor. When the task chunk size is smaller than the page size, page migration
+can break the locality-based task distribution. When the chunk size is larger
+than the page size, on the other hand, processing one map task could end up 
+touching multiple remote pages. Using superpages tends to reduce TLB misses,
+leading to application speedup as well.
+
+In our case, it turned out that the chunk size had more impact than the page 
+size, so once the chunk size was set the page size had only a marginal impact. 
+For those workloads that did benefit from larger page sizes, however, we could 
+not relate the performance improvement to the reduction in TLB misses. 
+Rather, it seemed that the code path in OS virtual memory subsystem was 
+optimized for a particular page size. On Solaris, for example, 64 KB tends to 
+give the best performance.
+
+For Solaris, changing the page size can be accomplished with either the ppgsz
+wrapper or the libmpss.so.1 preload library.
+
+3.2. Memory Allocator
+
+As mentioned in Section 2.2, memory allocator performance is critical on
+Phoenix. Most of the memory allocations are concentrated in the map phase; the
+sheer amount and intencity of memory allocation requests stress the memory
+alloctor. Even worse, the memory allocated during the map phase are only
+deallocated during the reduce phase, mostly by a different thread.
+
+Our default memory allocator on Solaris is mtmalloc. We have tried other memory
+allocators as well, but overall mtmalloc provided the best performance. 
+On Linux users might want to try different allocators to compare their 
+performances.
+
+
+End File

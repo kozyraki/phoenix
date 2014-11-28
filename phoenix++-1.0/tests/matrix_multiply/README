@@ -1,0 +1,37 @@
+Phoenix Project
+Matrix Multiply Example Application Readme
+Last revised May 15, 2011
+
+
+1. Application Overview
+-----------------------
+
+Matrix Multiply application computes the product of 2 matrices
+of the same size.
+
+
+2. Provided Files
+-----------------
+
+matrix_multiply.cpp: The application
+Makefile: Compiles the application
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile the application. 
+
+./matrix_multiply <side of matrix> <size of Row block> [create files]
+side of matrix: Specifies the length of the side of the matrix (both matrices are of the same size) (required)
+size of Row block: Number of rows that are assigned for each map task (required)
+create files: Flag to create the files that hold the input matrices (optional)
+(Leave argument blank if files already exist. The files will be used as input to the application. Set flag to 1 to create files for the first time.) 
+
+The files created are 
+"matrix_file_A.txt" (input file)
+"matrix_file_B.txt" (input file)
+
+
+End File

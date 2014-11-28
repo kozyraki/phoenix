@@ -1,0 +1,33 @@
+Phoenix Project
+Historgram Example Application Readme
+Last revised May 15, 2011
+
+
+1. Application Overview
+-----------------------
+
+The Histogram application generates the histogram of frequencies of pixel values
+in the red, green, and blue channels of a bitmap picture.
+
+
+2. Provided Files
+-----------------
+
+histogram.cpp: The application
+Makefile: Compiles the application
+datafiles/*.bmp: Sample bitmap files of varying sizes that can be used as 
+                 input to this application (download from the website)
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile the application. 
+
+./histogram <image-name>
+
+runs the application.
+
+
+End File

@@ -1,0 +1,32 @@
+Phoenix Project
+PCA Example Application Readme
+Last revised May 15, 2011
+
+
+1. Application Overview
+-----------------------
+
+The PCA application computes the mean vector and covariance matrix for a 
+randomly generated matrix, which is the first step in performing principal 
+component analysis. 
+
+
+2. Provided Files
+-----------------
+
+pca.cpp: The application
+Makefile: Compiles the application
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile the application. 
+
+./pca -r <num_rows> -c <num_cols> -s <max value>
+
+runs the application.
+
+
+End File

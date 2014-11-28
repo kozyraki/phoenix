@@ -1,0 +1,102 @@
+Phoenix Project
+CHANGES File
+Last revised May 27, 2009
+
+This file documents the changes of Phoenix 2 over the original Phoenix release.
+
+
+1. Highlights
+-------------
+
+- Linux (x86_64) support
+- Enhanced NUMA support for Solaris environment
+- Improved performance and stability
+
+
+2. API Changes
+--------------
+
+2.1. Initializer and Finalizer Interfaces
+
+Phoenix 2 uses thread pool to minimize thread creation / deletion across
+multiple map_reduce() invocations. Hence the library should be initialized / 
+finalized once for each process. Applications should call map_reduce_init() 
+before calling map_reduce(), and should call map_reduce_finalize() before 
+exit.
+
+2.2. Use of Iterator in Reduce Function Interface
+
+Now the reduce_t reduce function interface takes iterator as an argument.
+This allowed us to decouple the internal buffer implementation from what is 
+presented to the user reduce function. Prefetching was added on the back of 
+the iterator as well. For example uses of iterators please refer to the sample 
+applications.
+
+2.3. Combiner Function
+
+Users can specify a combiner_t function to the runtime to perform partial
+reduction at the end of the map phase. As noted in the original MapReduce
+paper, the reduce function should be commutative and associative to guarantee
+the same result using combiner. This interface was originally introduced 
+to reduce the amount of map-to-reduce phase cross-chip memory traffic in NUMA 
+environment. 
+
+However, we find that combiners are also useful to reduce memory allocation 
+pressure by reusing some of the buffers. For those workloads that generate 
+large amounts of intermediate data (e.g., word_count), this approach can be 
+useful at high thread count. Uncommenting the INCREMENTAL_COMBINER definition 
+in src/map_reduce.c file enables this feature.
+
+2.4. Locator Function
+
+When compiled for Solaris, the Phoenix library performs locality-aware map task
+distribution for NUMA environment, using Solaris Memory Placement Optimization 
+(MPO) interface. A task queue is created for each locality group, and tasks are
+distributed according to the location of the physical memory that backs the 
+data chunk to be processed. Threads work on their local task queue first, and
+start performing task stealing across locality groups when the queue becomes
+empty. locator_t locator function interface is used to query which memory 
+region a map task would be working on. This function can be written by slightly 
+modifying the partition function. For example uses please refer to the sample 
+applications. 
+
+Locality-aware task distribution is not yet implemented for Linux. Users can
+implement the feature by providing codes for Linux in the src/locality.c file.
+
+
+3. Implementation Changes
+-------------------------
+
+3.1. Cross-Platform Compatibility
+
+Platform-dependent codes were removed from the src/map_reduce.c file, and 
+were given dedicated source modules that together form an abstraction layer. 
+src/processor.[ch] defines the module for processor status querying / thread 
+binding. src/locality.[ch] defines the NUMA support module. All the memory 
+operations were forced into src/memory.[ch] to allow the use of custom memory 
+allocator.
+
+In general, at compile time, the Defines.mk file detects the current platform
+and defines OS and architecture flags. All the source codes were restructured 
+to generate codes accordingly. We have experimented the library
+on Solaris (SPARC) and Linux (x86_64) environment. Some of the users were
+successful in running the library on Solaris (x86_64) as well.
+
+3.2. Library Linkage
+
+Linkage can be changed by setting the LINKAGE variable in Defines.mk file.
+Compiled library goes into lib directory, and the applications link against 
+that location. The library does static linking by default.
+
+
+4. Application Changes
+----------------------
+
+4.1. reverse_index
+
+reverse_index workload has been dropped since it has been identified to be I/O
+bound. It would be trivial to port the reverse_index workload in the original
+Phoenix release to work with Phoenix 2.
+
+
+End File

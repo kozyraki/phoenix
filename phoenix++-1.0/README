@@ -1,0 +1,87 @@
+Phoenix++
+Top README File
+Last revised May 15, 2011
+
+
+1. What is Phoenix++
+--------------------
+
+Phoenix++ is a C++ reimplementation of Phoenix 2.
+
+Phoenix is a shared-memory implementation of Google's MapReduce model
+for data-intensive processing tasks. Phoenix can be used to program
+multi-core chips as well as shared-memory multiprocessors (SMPs and
+ccNUMAs). Phoenix was developed as a class project for the EE382a
+class at Stanford (Advanced Processor Architecture). The paper on
+Phoenix won the best paper award in the HPCA'07 conference. 
+
+The Phoenix webpage is: http://mapreduce.stanford.edu
+
+
+2. What has Changed in Phoenix++
+---------------------------------
+
+- C++ implementation and interface
+- Designed using templates to reduce code that the user must write
+    and to increase type safety and performance 
+- Compiles on Mac OS X
+
+
+3. What is Required
+-------------------
+
+Phoenix++ uses C++ TR1 features. Your compiler should support TR1.
+
+
+4. What is Provided
+-------------------
+
+The Phoenix++ distribution includes the following directories:
+
+docs:       Phoenix publications.
+
+src:        The source code for the Phoenix++ MapReduce library.
+
+tests:      The source code for the sample MapReduce applications.
+
+scripts:    Supporting scripts.
+
+include:    Header files for the Phoenix++ library.
+
+lib:        Compiled Phoenix++ library.
+ 
+Note: Three sample applications (i.e., kmeans, pca, and matrix_multiply)
+      use randomly generated input data. For other workloads, additional input 
+      datasets are necessary. This source code tar file does not include 
+      these datasets. Please visit the Phoenix webpage to download additional 
+      datasets.
+
+
+5. License & Credit
+-------------------
+
+Phoenix++ source code is distributed with a BSD-style license. The
+copyright is held by Stanford University. Phoenix++ is provided "as is"
+without any guarantees of any kind.
+
+If you use Phoenix in your work or research, consider referencing the
+HPCA'07 paper: 
+
+ "Evaluating MapReduce for Multi-core and Multiprocessor Systems",
+  Colby Ranger, Ramanan Raghuraman, Arun Penmetsa, Gary Bradski,
+  Christos Kozyrakis.  Proceedings of the 13th Intl. Symposium on
+  High-Performance Computer Architecture (HPCA), Phoenix, AZ, February
+  2007"
+
+
+6. Contact Information
+----------------------
+
+Phoenix++ was written by 
+    Justin Talbot, jtalbot@stanford.edu
+    Richard Yoo, rmyoo@stanford.edu
+
+The Phoenix webpage is: http://mapreduce.stanford.edu
+
+
+End File

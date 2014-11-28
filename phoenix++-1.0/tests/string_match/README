@@ -1,0 +1,32 @@
+Phoenix Project
+String Match Example Application Readme
+Last revised May 15, 2011
+
+
+1. Application Overview
+-----------------------
+
+String Match application scrolls through a list of keys (provided in a file)
+in order to determine if any of them occur in a list of encrypted words (which 
+are hardcoded into the application).
+
+
+2. Provided Files
+-----------------
+
+string_match.cpp: The application
+datafiles/key_file_*.txt: Key files of various sizes containing the list of words (download from the website)
+Makefile: Compiles the application
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile the application. 
+
+./string_match <keys filename>
+<keys filename>: Specifies the file containing the list of keys
+
+
+End File

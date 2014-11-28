@@ -1,0 +1,33 @@
+Phoenix Project
+Linear Regression Example Application Readme
+Last revised May 15, 2011
+
+
+1. Application Overview
+-----------------------
+
+The Linear Regression application generates the summary statistics of points to 
+give the linear approximation of all the points. It reads the x-y coordinates
+sequentially from the specified file.
+
+
+2. Provided Files
+-----------------
+
+linear_regression.cpp: The application
+Makefile: Compiles the application
+datafiles/key_file*.txt: Files of various sizes that contain input coordinates (download from the website)
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile the application. 
+
+./linear_regression <file-name>
+
+runs the application.
+
+
+End File

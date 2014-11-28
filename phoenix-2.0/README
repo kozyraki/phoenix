@@ -1,0 +1,90 @@
+Phoenix Project
+Top README File
+Last revised May 27, 2009
+
+
+1. What is Phoenix
+------------------
+
+Phoenix is a shared-memory implementation of Google's MapReduce model
+for data-intensive processing tasks. Phoenix can be used to program
+multi-core chips as well as shared-memory multiprocessors (SMPs and
+ccNUMAs).  Phoenix was developed as a class project for the EE382a
+class at Stanford (Advanced Processor Architecture). The paper on
+Phoenix won the best paper award in the HPCA'07 conference. 
+
+The Phoenix webpage is: http://mapreduce.stanford.edu
+
+
+2. What has Changed in Phoenix 2
+--------------------------------
+
+Phoenix 2 is the significantly improved version of the original Phoenix release.
+Changes include:
+
+- Linux (x86_64) support
+- Enhanced NUMA support for Solaris environment
+- Improved performance and stability
+
+For more details please refer to the CHANGES file in this directory.
+
+
+3. What is Provided
+-------------------
+
+The Phoenix distribution includes the following directories:
+
+docs:       The HPCA'07 paper and slides on Phoenix as well as the
+            original OSDI'04 MapReduce paper by Google. 
+
+src:        The source code for the Phoenix MapReduce library.
+
+tests:      The source code for the sample MapReduce applications.
+            For each application, we provide MapReduce, sequential, and 
+            Pthreads code for comparison purposes. 
+
+bin:        Supporting utilities.
+
+include:    Header files for the Phoenix library.
+
+lib:        Compiled Phoenix library.
+ 
+Note: Three sample applications (i.e., kmeans, pca, and matrix_multiply)
+      use randomly generated input data. For other workloads, additional input 
+      datasets are necessary. This source code tar file does not include 
+      these datasets. Please visit the Phoenix webpage to download additional 
+      datasets.
+
+
+4. License & Credit
+-------------------
+
+Phoenix source code is distributed with a BSD-style license. The
+copyright is held by Stanford University. Phoenix is provided "as is"
+without any guarantees of any kind.
+
+If you use Phoenix in your work or research, consider referencing the
+HPCA'07 paper: 
+
+ "Evaluating MapReduce for Multi-core and Multiprocessor Systems",
+  Colby Ranger, Ramanan Raghuraman, Arun Penmetsa, Gary Bradski,
+  Christos Kozyrakis.  Proceedings of the 13th Intl. Symposium on
+  High-Performance Computer Architecture (HPCA), Phoenix, AZ, February
+  2007"
+
+
+5. Contact Information
+----------------------
+
+Please contact Christos Kozyrakis (christos@ee.stanford.edu) for
+further information. We would appreciate if you let us know that you
+are using our system. While we may not be able to provide technical
+support, please let us know about bug reports and suggested
+improvements. If you make some corrections or improvements to Phoenix,
+we would appreciate receiving a copy that we can include in the next
+release.
+
+The Phoenix webpage is: http://mapreduce.stanford.edu
+
+
+End File

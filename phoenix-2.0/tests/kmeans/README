@@ -1,0 +1,37 @@
+Phoenix Project
+Kmeans Example Application Readme
+Last revised May 27, 2009
+
+
+1. Application Overview
+-----------------------
+
+The Kmeans application groups several n-dimensional datapoints into a 
+user-specified number of groups using an iterative process, and finds the mean
+value of each group.
+
+
+2. Provided Files
+-----------------
+
+kmeans.c: The version of the file that uses the MapReduce engine
+kmeans-seq.c: The sequential version of the application
+kmeans-pthread.c: The Pthreads version of the application
+Makefile: Compiles all 3 versions of the application
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile all 3 versions of the application.
+
+./kmeans -d <vector dimension> -c <num clusters> -p <num points> -s <max value>
+./kmeans-seq -d <vector dimension> -c <num clusters> -p <num points> -s <max value>
+./kmeans-pthread -d <vector dimension> -c <num clusters> -p <num points> -s <max value>
+
+runs the MapReduce, sequential, and Pthreads version of the application,
+respectively.
+
+
+End File

@@ -1,0 +1,37 @@
+Phoenix Project
+PCA Example Application Readme
+Last revised May 27, 2009
+
+
+1. Application Overview
+-----------------------
+
+The PCA application computes the mean vector and covariance matrix for a 
+randomly generated matrix, which is the first step in performing principal 
+component analysis. 
+
+
+2. Provided Files
+-----------------
+
+pca.c: The version of the file that uses the MapReduce engine
+pca-seq.c: The sequential version of the application
+pca-pthread.c: The Pthreads version of the application
+Makefile: Compiles all 3 versions of the application
+README: This file
+
+
+3. Running the Application
+--------------------------
+
+Run 'make' to compile all 3 versions of the application. 
+
+./pca -r <num_rows> -c <num_cols> -s <max value>
+./pca-seq -r <num_rows> -c <num_cols> -s <max value>
+./pca-pthread -r <num_rows> -c <num_cols> -s <max value>
+
+runs the MapReduce, sequential, and Pthreads version of the application,
+respectively.
+
+
+End File
