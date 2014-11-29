@@ -19,9 +19,10 @@ ___Distributions___
 You have the following distribution options:
 - Phoenix++
 - Phoenix 2
-- Phoenix 1, full: it includes the Phoenix scheduler for MapReduce programming, some basic documentation, and the source code for 8 applications. 3 applications Toperate on randomly generated datasets plus 5 additional applications with small datasets for testing purposes.
+- Phoenix 1
+- Sample apps (8)
 
-Full input datasets for the sample applications: we provide small, medium, and large datasets for each application.
+Full input datasets for 5 of the sample applications. We provide small, medium, and large datasets for each application. The other 3 sample applications operate on randomly generated data. 
 - [histogram](http://csl.stanford.edu/~christos/data/histogram.tar.gz)(~512 MB)
 - [linear regression](http://csl.stanford.edu/~christos/data/linear_regression.tar.gz) (~212 MB)
 - [string match](http://csl.stanford.edu/~christos/data/reverse_index.tar.gz) (~212 MB)
