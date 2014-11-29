@@ -22,11 +22,11 @@ You have the following distribution options:
 - Phoenix 1, full: it includes the Phoenix scheduler for MapReduce programming, some basic documentation, and the source code for 8 applications. 3 applications Toperate on randomly generated datasets plus 5 additional applications with small datasets for testing purposes.
 
 Full input datasets for the sample applications: we provide small, medium, and large datasets for each application.
-- histogram (~512 MB)
-- linear regression (~212 MB)
-- string match (~212 MB)
-- reverse index (~154 MB)
-- word count (~59 MB)
+- [histogram](http://csl.stanford.edu/~christos/data/histogram.tar.gz)(~512 MB)
+- [linear regression](http://csl.stanford.edu/~christos/data/linear_regression.tar.gz) (~212 MB)
+- [string match](http://csl.stanford.edu/~christos/data/reverse_index.tar.gz) (~212 MB)
+- [reverse index](http://csl.stanford.edu/~christos/data/string_match.tar.gz) (~154 MB)
+- [word count](http://csl.stanford.edu/~christos/data/word_count.tar.gz) (~59 MB)
 
 ___License___
 
