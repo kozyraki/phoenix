@@ -25,8 +25,8 @@ You have the following distribution options:
 Full input datasets for 5 of the sample applications. We provide small, medium, and large datasets for each application. The other 3 sample applications operate on randomly generated data. 
 - [histogram](http://csl.stanford.edu/~christos/data/histogram.tar.gz)(~512 MB)
 - [linear regression](http://csl.stanford.edu/~christos/data/linear_regression.tar.gz) (~212 MB)
-- [string match](http://csl.stanford.edu/~christos/data/reverse_index.tar.gz) (~212 MB)
-- [reverse index](http://csl.stanford.edu/~christos/data/string_match.tar.gz) (~154 MB)
+- [string match](http://csl.stanford.edu/~christos/data/string_match.tar.gz) (~212 MB)
+- [reverse index](http://csl.stanford.edu/~christos/data/reverse_index.tar.gz) (~154 MB)
 - [word count](http://csl.stanford.edu/~christos/data/word_count.tar.gz) (~59 MB)
 
 ___License___
